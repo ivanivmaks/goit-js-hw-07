@@ -42,15 +42,24 @@ function openImg(event) {
 }
 // Відкриття модального вікна з великим зображенням
 function openLightbox(url) {
-  const instance = basicLightbox.create(`<img src="${url}">`);
+  const instance = basicLightbox.create(`<img src="${url}">`, {
+    onShow: handleShow,
+    onClose: handleClose,
+  });
   instance.show();
-  document.addEventListener("keydown", handleKeyDown);
+
+  function handleShow() {
+    document.addEventListener("keydown", handleKeyDown);
+  }
+
+  function handleClose() {
+    document.removeEventListener("keydown", handleKeyDown);
+  }
 
   // закриття клавішою "Escape"
   function handleKeyDown(event) {
     if (event.code === "Escape") {
       instance.close();
-      document.removeEventListener("keydown", handleKeyDown);
     }
   }
 }
