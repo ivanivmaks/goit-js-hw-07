@@ -19,7 +19,6 @@ function createGalleryItem({ preview, original, description }) {
   img.src = preview;
   img.dataset.source = original;
   img.alt = description;
-  img.addEventListener("click", preventDefault);
 
   galleryItem.appendChild(link);
   link.appendChild(img);
@@ -29,26 +28,14 @@ function createGalleryItem({ preview, original, description }) {
 
 createGallery();
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 function openImg(event) {
   event.preventDefault();
   const url = event.target.dataset.source;
   const instance = basicLightbox.create(`<img src="${url}">`, {
-    onShow: handleShow,
-    onClose: handleClose,
+    onShow: document.addEventListener("keydown", handleKeyDown),
+    onClose: document.removeEventListener("keydown", handleKeyDown),
   });
   instance.show();
-
-  function handleShow() {
-    document.addEventListener("keydown", handleKeyDown);
-  }
-
-  function handleClose() {
-    document.removeEventListener("keydown", handleKeyDown);
-  }
 
   function handleKeyDown(event) {
     if (event.code === "Escape") {

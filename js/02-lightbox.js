@@ -26,7 +26,7 @@ function createGalleryItem({ preview, original, description }) {
 
 createGallery();
 
-const lightbox = new SimpleLightbox(".gallery a", {
+const lightbox = new SimpleLightbox(".gallery img", {
   captionsData: "alt",
-  captionsDelay: "250ms",
+  captionDelay: 250,
 });
