@@ -21,6 +21,10 @@ function createGalleryItem({ preview, original, description }) {
   galleryItem.appendChild(link);
   link.appendChild(img);
 
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+  });
+
   return galleryItem;
 }
 
